@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>İstirahat Hesapla</title>
+    <title>İstirahat Hesaplama</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="İstirahat">
+    <meta name="apple-mobile-web-app-title" content="İstirahat Hesaplama">
     <link rel="apple-touch-icon" href="https://via.placeholder.com/180/3498db/ffffff?text=C">
 
     <style>
@@ -37,14 +37,14 @@
     
     <label>1. Grup Yatış (Saat : Dakika)</label>
     <div class="row">
-        <input type="tel" id="startH" placeholder="05" maxlength="2">
+        <input type="tel" id="startH" placeholder="00" maxlength="2">
         <span class="sep">:</span>
         <input type="tel" id="startM" placeholder="00" maxlength="2">
     </div>
     
     <label>İniş Saati (Saat : Dakika)</label>
     <div class="row">
-        <input type="tel" id="landH" placeholder="12" maxlength="2">
+        <input type="tel" id="landH" placeholder="00" maxlength="2">
         <span class="sep">:</span>
         <input type="tel" id="landM" placeholder="00" maxlength="2">
     </div>
@@ -57,7 +57,7 @@
         <span class="unit">dk</span>
     </div>
     
-    <label>Hazırlık Boşluğu (Gap)</label>
+    <label>Grup Değişimi / Hazırlık Süresi</label>
     <select id="gap">
         <option value="10">10 Dakika</option>
         <option value="15" selected>15 Dakika</option>
@@ -67,16 +67,16 @@
 
     <div id="result" class="result">
         <div class="p-rest-box">
-            Kişi Başı Dinlenme: <span id="p_rest"></span>
+            Grup Başına Dinlenme: <span id="p_rest"></span>
         </div>
         
         <div class="step"><span>Grup 1 Yatış:</span> <b id="r_g1_s"></b></div>
         <div class="step"><span>Grup 1 Kalkış:</span> <b id="r_g1_e"></b></div>
-        <div class="gap-text">--- <span id="r_gap1"></span> dk Hazırlık ---</div>
+        <div class="gap-text">--- <span id="r_gap1"></span> dk Uyanma / Hazırlık ---</div>
         
         <div class="step"><span>Grup 2 Yatış:</span> <b id="r_g2_s"></b></div>
         <div class="step"><span>Grup 2 Kalkış:</span> <b id="r_g2_e"></b></div>
-        <div class="gap-text">--- <span id="r_gap2"></span> dk Hazırlık ---</div>
+        <div class="gap-text">--- <span id="r_gap2"></span> dk Uyanma / Hazırlık ---</div>
         
         <div class="step"><span>Servis Başlangıç:</span> <b id="r_serv"></b></div>
         <div class="step"><span>İniş:</span> <b id="r_land"></b></div>
@@ -147,3 +147,4 @@ function hesapla() {
 </script>
 </body>
 </html>
+
