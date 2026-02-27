@@ -2,7 +2,7 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>İstirahat Hesapla</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,7 +16,7 @@
         label { font-size: 0.9rem; font-weight: bold; display: block; margin-top: 10px; }
         .row { display: flex; gap: 10px; align-items: center; }
         input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; margin-top: 15px; cursor: pointer; }
+        button { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; margin-top: 15px; cursor: pointer; -webkit-appearance: none; }
         .result { margin-top: 25px; border-left: 4px solid var(--accent); padding-left: 15px; display: none; background: #f8fbff; padding: 15px; border-radius: 0 8px 8px 0; }
         .step { margin-bottom: 12px; font-size: 0.95rem; display: flex; justify-content: space-between; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
         .step b { color: #2980b9; }
@@ -30,14 +30,14 @@
     
     <label>1. Grup Yatış (SS:DD):</label>
     <div class="row">
-        <input type="tel" id="startH" placeholder="00" maxlength="2">
+        <input type="tel" id="startH" placeholder="05" maxlength="2">
         <span>:</span>
         <input type="tel" id="startM" placeholder="00" maxlength="2">
     </div>
     
     <label>İniş Saati (SS:DD):</label>
     <div class="row">
-        <input type="tel" id="landH" placeholder="00" maxlength="2">
+        <input type="tel" id="landH" placeholder="12" maxlength="2">
         <span>:</span>
         <input type="tel" id="landM" placeholder="00" maxlength="2">
     </div>
@@ -85,7 +85,6 @@ function formatTime(totalMin) {
 }
 
 function hesapla() {
-    // Inputları al
     let sH = parseInt(document.getElementById('startH').value) || 0;
     let sM = parseInt(document.getElementById('startM').value) || 0;
     let lH = parseInt(document.getElementById('landH').value) || 0;
@@ -94,23 +93,18 @@ function hesapla() {
     let svM = parseInt(document.getElementById('servM').value) || 0;
     let gap = parseInt(document.getElementById('gap').value);
 
-    // Dakikaya çevir
     let startTotal = (sH * 60) + sM;
     let landTotal = (lH * 60) + lM;
     let serviceTotalMin = (svH * 60) + svM;
 
-    // Gece yarısı kontrolü
     if (landTotal <= startTotal) landTotal += 1440;
 
-    // Geriye doğru hesapla
     let serviceStart = landTotal - serviceTotalMin;
     let g2Wake = serviceStart - gap;
     
-    // Toplam dinlenme süresini bul ve 2'ye böl
     let totalRestPool = (g2Wake - startTotal) - gap;
     let restPerPerson = Math.floor(totalRestPool / 2);
 
-    // Saat/Dakika formatına çevirme (Kişi başı için)
     let restH = Math.floor(restPerPerson / 60);
     let restM = restPerPerson % 60;
     let restDisplayText = restH > 0 ? restH + " sa " + restM + " dk" : restM + " dk";
@@ -118,7 +112,6 @@ function hesapla() {
     let g1Wake = startTotal + restPerPerson;
     let g2Start = g1Wake + gap;
 
-    // Sonuçları yazdır
     document.getElementById('p_rest').innerText = restDisplayText;
     document.getElementById('r_g1_s').innerText = formatTime(startTotal);
     document.getElementById('r_g1_e').innerText = formatTime(g1Wake);
@@ -130,8 +123,8 @@ function hesapla() {
     document.getElementById('r_land').innerText = formatTime(landTotal);
     
     document.getElementById('result').style.display = 'block';
+    window.scrollTo(0, document.body.scrollHeight);
 }
 </script>
 </body>
-
 </html>
