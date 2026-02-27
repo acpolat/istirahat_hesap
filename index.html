@@ -4,53 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>İstirahat Hesapla</title>
+    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="İstirahat">
     <link rel="apple-touch-icon" href="https://via.placeholder.com/180/3498db/ffffff?text=C">
+
     <style>
-        :root { --primary: #2c3e50; --accent: #3498db; }
-        body { font-family: -apple-system, sans-serif; padding: 15px; background: #f0f2f5; color: var(--primary); }
-        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
-        h2 { text-align: center; margin-bottom: 20px; font-size: 1.2rem; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        label { font-size: 0.9rem; font-weight: bold; display: block; margin-top: 10px; }
-        .row { display: flex; gap: 10px; align-items: center; }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; margin-top: 15px; cursor: pointer; -webkit-appearance: none; }
-        .result { margin-top: 25px; border-left: 4px solid var(--accent); padding-left: 15px; display: none; background: #f8fbff; padding: 15px; border-radius: 0 8px 8px 0; }
-        .step { margin-bottom: 12px; font-size: 0.95rem; display: flex; justify-content: space-between; border-bottom: 1px dashed #eee; padding-bottom: 4px; }
+        :root { --primary: #2c3e50; --accent: #3498db; --bg: #f0f2f5; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 15px; background: var(--bg); color: var(--primary); margin: 0; }
+        .card { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
+        h2 { text-align: center; margin-top: 0; margin-bottom: 20px; font-size: 1.3rem; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        label { font-size: 0.9rem; font-weight: 700; display: block; margin-top: 15px; margin-bottom: 5px; }
+        .row { display: flex; gap: 8px; align-items: center; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 10px; font-size: 16px; box-sizing: border-box; outline: none; transition: border 0.3s; }
+        input:focus { border-color: var(--accent); }
+        .sep { font-weight: bold; font-size: 1.2rem; }
+        .unit { font-size: 0.8rem; color: #7f8c8d; }
+        button { width: 100%; padding: 15px; background: var(--accent); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: bold; margin-top: 20px; cursor: pointer; -webkit-appearance: none; }
+        button:active { opacity: 0.8; }
+        .result { margin-top: 25px; border-left: 5px solid var(--accent); padding: 15px; display: none; background: #f8fbff; border-radius: 0 12px 12px 0; }
+        .p-rest-box { text-align: center; font-weight: bold; margin-bottom: 15px; color: #16a085; font-size: 1.1rem; border-bottom: 1px solid #d1eaea; padding-bottom: 10px; }
+        .step { margin-bottom: 12px; font-size: 0.95rem; display: flex; justify-content: space-between; border-bottom: 1px dashed #eee; padding-bottom: 5px; }
         .step b { color: #2980b9; }
-        .gap-text { font-style: italic; font-size: 0.85rem; color: #7f8c8d; margin: 5px 0 15px 0; text-align: center; }
+        .gap-text { font-style: italic; font-size: 0.85rem; color: #7f8c8d; margin: 8px 0; text-align: center; background: #f1f1f1; border-radius: 20px; padding: 2px 0; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <h2>İstirahat Hesapla</h2>
+    <h2>İstirahat Hesaplayıcı</h2>
     
-    <label>1. Grup Yatış (SS:DD):</label>
+    <label>1. Grup Yatış (Saat : Dakika)</label>
     <div class="row">
         <input type="tel" id="startH" placeholder="05" maxlength="2">
-        <span>:</span>
+        <span class="sep">:</span>
         <input type="tel" id="startM" placeholder="00" maxlength="2">
     </div>
     
-    <label>İniş Saati (SS:DD):</label>
+    <label>İniş Saati (Saat : Dakika)</label>
     <div class="row">
         <input type="tel" id="landH" placeholder="12" maxlength="2">
-        <span>:</span>
+        <span class="sep">:</span>
         <input type="tel" id="landM" placeholder="00" maxlength="2">
     </div>
     
-    <label>Servis Süresi:</label>
+    <label>Servis Süresi</label>
     <div class="row">
-        <input type="number" id="servH" value="2" placeholder="Saat">
-        <span>sa</span>
-        <input type="number" id="servM" value="30" placeholder="Dak">
-        <span>dk</span>
+        <input type="number" id="servH" value="2">
+        <span class="unit">sa</span>
+        <input type="number" id="servM" value="30">
+        <span class="unit">dk</span>
     </div>
     
-    <label>Hazırlık Boşluğu:</label>
+    <label>Hazırlık Boşluğu (Gap)</label>
     <select id="gap">
         <option value="10">10 Dakika</option>
         <option value="15" selected>15 Dakika</option>
@@ -59,17 +66,17 @@
     <button onclick="hesapla()">HESAPLA</button>
 
     <div id="result" class="result">
-        <div style="text-align:center; font-weight:bold; margin-bottom:15px; color:#16a085;">
+        <div class="p-rest-box">
             Kişi Başı Dinlenme: <span id="p_rest"></span>
         </div>
         
         <div class="step"><span>Grup 1 Yatış:</span> <b id="r_g1_s"></b></div>
         <div class="step"><span>Grup 1 Kalkış:</span> <b id="r_g1_e"></b></div>
-        <div class="gap-text">--- <span id="r_gap1"></span> dk Uyanma / Hazırlık ---</div>
+        <div class="gap-text">--- <span id="r_gap1"></span> dk Hazırlık ---</div>
         
         <div class="step"><span>Grup 2 Yatış:</span> <b id="r_g2_s"></b></div>
         <div class="step"><span>Grup 2 Kalkış:</span> <b id="r_g2_e"></b></div>
-        <div class="gap-text">--- <span id="r_gap2"></span> dk Uyanma / Hazırlık ---</div>
+        <div class="gap-text">--- <span id="r_gap2"></span> dk Hazırlık ---</div>
         
         <div class="step"><span>Servis Başlangıç:</span> <b id="r_serv"></b></div>
         <div class="step"><span>İniş:</span> <b id="r_land"></b></div>
@@ -77,6 +84,7 @@
 </div>
 
 <script>
+// Saat formatlama fonksiyonu
 function formatTime(totalMin) {
     totalMin = (totalMin + 1440) % 1440;
     let h = Math.floor(totalMin / 60).toString().padStart(2, '0');
@@ -85,34 +93,42 @@ function formatTime(totalMin) {
 }
 
 function hesapla() {
-    let sH = parseInt(document.getElementById('startH').value) || 0;
-    let sM = parseInt(document.getElementById('startM').value) || 0;
-    let lH = parseInt(document.getElementById('landH').value) || 0;
-    let lM = parseInt(document.getElementById('landM').value) || 0;
-    let svH = parseInt(document.getElementById('servH').value) || 0;
-    let svM = parseInt(document.getElementById('servM').value) || 0;
-    let gap = parseInt(document.getElementById('gap').value);
+    // Girişleri al
+    const sH = parseInt(document.getElementById('startH').value) || 0;
+    const sM = parseInt(document.getElementById('startM').value) || 0;
+    const lH = parseInt(document.getElementById('landH').value) || 0;
+    const lM = parseInt(document.getElementById('landM').value) || 0;
+    const svH = parseInt(document.getElementById('servH').value) || 0;
+    const svM = parseInt(document.getElementById('servM').value) || 0;
+    const gap = parseInt(document.getElementById('gap').value);
 
+    // Dakikaya çevir
     let startTotal = (sH * 60) + sM;
     let landTotal = (lH * 60) + lM;
-    let serviceTotalMin = (svH * 60) + svM;
+    const serviceTotalMin = (svH * 60) + svM;
 
+    // Gece yarısı kontrolü (Örn: 23:00 yatış, 05:00 iniş)
     if (landTotal <= startTotal) landTotal += 1440;
 
-    let serviceStart = landTotal - serviceTotalMin;
-    let g2Wake = serviceStart - gap;
+    // Geriye doğru matematik
+    const serviceStart = landTotal - serviceTotalMin;
+    const g2Wake = serviceStart - gap;
     
-    let totalRestPool = (g2Wake - startTotal) - gap;
-    let restPerPerson = Math.floor(totalRestPool / 2);
+    // Toplam havuzdan mola payını çıkar ve 2'ye böl (Rounding)
+    const totalRestPool = (g2Wake - startTotal) - gap;
+    const restPerPerson = Math.floor(totalRestPool / 2);
 
-    let restH = Math.floor(restPerPerson / 60);
-    let restM = restPerPerson % 60;
-    let restDisplayText = restH > 0 ? restH + " sa " + restM + " dk" : restM + " dk";
+    // Kişi başı süreyi saat/dakika yap
+    const restH = Math.floor(restPerPerson / 60);
+    const restM = restPerPerson % 60;
+    const restText = restH > 0 ? restH + " sa " + restM + " dk" : restM + " dk";
 
-    let g1Wake = startTotal + restPerPerson;
-    let g2Start = g1Wake + gap;
+    // Durakları hesapla
+    const g1Wake = startTotal + restPerPerson;
+    const g2Start = g1Wake + gap;
 
-    document.getElementById('p_rest').innerText = restDisplayText;
+    // Ekrana yazdır
+    document.getElementById('p_rest').innerText = restText;
     document.getElementById('r_g1_s').innerText = formatTime(startTotal);
     document.getElementById('r_g1_e').innerText = formatTime(g1Wake);
     document.getElementById('r_gap1').innerText = gap;
@@ -122,8 +138,11 @@ function hesapla() {
     document.getElementById('r_serv').innerText = formatTime(serviceStart);
     document.getElementById('r_land').innerText = formatTime(landTotal);
     
+    // Sonuç panelini göster
     document.getElementById('result').style.display = 'block';
-    window.scrollTo(0, document.body.scrollHeight);
+    
+    // Mobilde sonucu görmesi için aşağı kaydır
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 }
 </script>
 </body>
